@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pregnancy/app_router.dart';
-import 'package:pregnancy/blocs/auth/login_bloc.dart';
 import 'package:pregnancy/repositories/auth_repository.dart';
 import 'package:pregnancy/repositories/user_repository.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
@@ -28,18 +27,14 @@ class MyApp extends StatelessWidget {
           create: (context) => UserRepository(),
         ),
       ],
-      child: BlocProvider(
-        create: (context) =>
-            LoginBloc(authRepository: context.read<AuthRepository>()),
-        child: MaterialApp.router(
-          title: 'PregnancyApp',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: ColorStyle.primary),
-            useMaterial3: true,
-          ),
-          debugShowCheckedModeBanner: false,
-          routerConfig: AppRouter().router,
+      child: MaterialApp.router(
+        title: 'PregnancyApp',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: ColorStyle.primary),
+          useMaterial3: true,
         ),
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRouter().router,
       ),
     );
   }

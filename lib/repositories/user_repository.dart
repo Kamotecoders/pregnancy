@@ -1,26 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pregnancy/models/user.dart';
 
 class UserRepository {
   final FirebaseFirestore _firestore;
+  late CollectionReference collectionReference;
   UserRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
-
-  final CollectionReference _usersCollection =
-      FirebaseFirestore.instance.collection('users');
-
-  // Create or update user profile
-  Future<void> updateUserProfile(
-      String userId, Map<String, dynamic> data) async {
-    await _usersCollection.doc(userId).set(data, SetOptions(merge: true));
+      : _firestore = firestore ?? FirebaseFirestore.instance {
+    collectionReference = _firestore.collection('users');
   }
 
-  // Get user profile
-  Stream<DocumentSnapshot?> getUserProfile(String userId) {
-    return _usersCollection.doc(userId).snapshots();
+  Future<void> addUser(Users user) async {
+    await collectionReference.doc(user.id).set(user.toJson());
+  }
+
+  Future<void> updateUserProfile(Users users) async {
+    await collectionReference
+        .doc(users.id)
+        .set(users.toJson(), SetOptions(merge: true));
+  }
+
+  Future<void> updateUserPhoto(String userID, String photoURL) async {
+    await collectionReference.doc(userID).update({'photo': photoURL});
+  }
+
+  Future<Users?> getUserProfile(String userId) async {
+    final snapshot = await collectionReference.doc(userId).get();
+    if (snapshot.exists) {
+      return Users.fromJson(snapshot.data() as Map<String, dynamic>);
+    } else {
+      return null;
+    }
   }
 
   // Delete user profile (optional)
   Future<void> deleteUserProfile(String userId) async {
-    await _usersCollection.doc(userId).delete();
+    await collectionReference.doc(userId).delete();
   }
 }

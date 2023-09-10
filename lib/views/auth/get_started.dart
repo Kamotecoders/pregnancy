@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pregnancy/app_router.dart';
+
 import 'package:pregnancy/styles/color_pallete.dart';
 
 class GetStarted extends StatefulWidget {
@@ -76,29 +76,28 @@ class _GetStartedState extends State<GetStarted> {
                       textDirection: TextDirection.ltr,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                  ElevatedButton(
+                    onPressed: () {
                       print("Clicked");
                       context.push("/login");
                     },
-                    child: Container(
-                      width: double.infinity,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff89d2c4),
-                        borderRadius: BorderRadius.circular(30),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          const Color(0xff89d2c4), // Set the background color
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(30), // Apply border radius
                       ),
-                      child: const Center(
-                        child: Center(
-                          child: Text(
-                            'Get Started',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
+                      minimumSize: const Size(
+                          double.infinity, 48), // Set the button size
+                    ),
+                    child: const Text(
+                      'Get Started',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
