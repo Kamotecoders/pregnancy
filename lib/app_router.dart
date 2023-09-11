@@ -6,10 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:pregnancy/models/user.dart';
 
 import 'package:pregnancy/views/auth/forgot_password.dart';
-
 import 'package:pregnancy/views/auth/get_started.dart';
+
 import 'package:pregnancy/views/auth/login.dart';
 import 'package:pregnancy/views/auth/sign_up.dart';
+
 import 'package:pregnancy/views/profile/change_password.dart';
 import 'package:pregnancy/views/profile/edit_profile.dart';
 

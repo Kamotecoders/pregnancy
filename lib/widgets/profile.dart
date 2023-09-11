@@ -5,7 +5,7 @@ class ProfileImageWithButton extends StatelessWidget {
   final VoidCallback onTap;
   final double size;
   ProfileImageWithButton(
-      {required this.imageUrl, required this.onTap, this.size = 100.0});
+      {required this.imageUrl, required this.onTap, this.size = 50});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,9 @@ class ProfileImageWithButton extends StatelessWidget {
         backgroundColor: Colors.grey[300], // Placeholder background color
         child: ClipOval(
           child: imageUrl.isEmpty
-              ? const Icon(
+              ? Icon(
                   Icons.person,
-                  size: 80, // Size of the icon
+                  size: size, // Size of the icon
                   color: Colors.grey, // Placeholder icon color
                 )
               : Image.network(

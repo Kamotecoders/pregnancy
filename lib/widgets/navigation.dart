@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
 import 'package:pregnancy/views/calendar/calendar.dart';
+import 'package:pregnancy/views/exercise/exercise.dart';
 import 'package:pregnancy/views/home/home.dart';
 import 'package:pregnancy/views/profile/profile.dart';
 import 'package:pregnancy/views/weight/weight_tracker.dart';
@@ -15,13 +16,15 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
   static const List<String> _titles = [
-    "home",
+    "Home",
+    "Exercise",
     "Calendar",
     "Weight Tracker",
     "Profile"
   ];
   static const List<Widget> _pages = <Widget>[
     HomePage(),
+    ExercisePage(),
     CalendarPage(),
     WeightTrackerPage(),
     ProfilePage(),
@@ -62,6 +65,14 @@ class _MainNavigationState extends State<MainNavigation> {
               semanticLabel: 'Text to home',
             ),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.run_circle_outlined,
+              size: 24.0,
+              semanticLabel: 'Text to exercise',
+            ),
+            label: 'Exercise',
           ),
           BottomNavigationBarItem(
             icon: Icon(

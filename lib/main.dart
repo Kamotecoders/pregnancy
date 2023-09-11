@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
-        title: 'PregnancyApp',
+        title: 'Pregnancy App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: ColorStyle.primary),
           useMaterial3: true,
