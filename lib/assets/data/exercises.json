@@ -1,0 +1,123 @@
+[
+  {
+    "trimester": "First Trimester",
+    "exercises": [
+      {
+        "name": "Walking",
+        "image": "https://img.freepik.com/free-photo/pregnant-woman-posing-park_1303-10717.jpg?size=626&ext=jpg&ga=GA1.2.424701124.1694464570&semt=ais",
+        "description": "Low-impact exercise to improve cardiovascular health.",
+        "duration": "30 minutes",
+        "frequency": "3-5 times per week"
+      },
+      {
+        "name": "Prenatal Yoga",
+        "image": "https://th.bing.com/th/id/R.39e37e85e6d0490c6046aa41741717ae?rik=s6uggTEQMd7nfA&riu=http%3a%2f%2fvistayoga.com%2fwp-content%2fuploads%2f2017%2f06%2fprenatal-july-2015.jpg&ehk=L0WJNzhm3I4nRBo2rFaGyygsG2f6U9sNDHzobwxx0j8%3d&risl=&pid=ImgRaw&r=0",
+        "description": "Gentle yoga poses to promote flexibility and relaxation.",
+        "duration": "20-30 minutes",
+        "frequency": "2-3 times per week"
+      },
+      {
+        "name": "Swimming",
+        "image": "https://th.bing.com/th/id/OIP.hZkLshSBo5RvO-EVBNHnyQHaDY?pid=ImgDet&rs=1",
+        "description": "Safe and low-impact exercise to work multiple muscle groups.",
+        "duration": "20-30 minutes",
+        "frequency": "2-3 times per week"
+      },
+      {
+        "name": "Pelvic Floor Exercises",
+        "image": "https://rescu.com.au/wp-content/uploads/2014/03/MG_8635.jpeg",
+        "description": "Strengthens pelvic muscles and supports pregnancy.",
+        "duration": "10-15 minutes",
+        "frequency": "Daily"
+      },
+      {
+        "name": "Light Strength Training",
+        "image": "https://www.mamypoko.co.in/blog/wp-content/uploads/2019/01/Resistance-Training.jpg",
+        "description": "Use light weights to maintain muscle tone.",
+        "duration": "15-20 minutes",
+        "frequency": "2-3 times per week"
+      }
+    ]
+  },
+
+  {
+    "trimester": "Second Trimester",
+    "exercises": [
+      {
+        "name": "Walking",
+        "image": "https://img.freepik.com/free-photo/pregnant-woman-posing-park_1303-10717.jpg?size=626&ext=jpg&ga=GA1.2.424701124.1694464570&semt=ais",
+        "description": "Low-impact exercise to improve cardiovascular health.",
+        "duration": "30 minutes",
+        "frequency": "3-5 times per week"
+      },
+      {
+        "name": "Prenatal Yoga",
+        "image": "https://th.bing.com/th/id/R.39e37e85e6d0490c6046aa41741717ae?rik=s6uggTEQMd7nfA&riu=http%3a%2f%2fvistayoga.com%2fwp-content%2fuploads%2f2017%2f06%2fprenatal-july-2015.jpg&ehk=L0WJNzhm3I4nRBo2rFaGyygsG2f6U9sNDHzobwxx0j8%3d&risl=&pid=ImgRaw&r=0",
+        "description": "Gentle yoga poses to promote flexibility and relaxation.",
+        "duration": "20-30 minutes",
+        "frequency": "2-3 times per week"
+      },
+      {
+        "name": "Swimming",
+        "image": "https://th.bing.com/th/id/OIP.hZkLshSBo5RvO-EVBNHnyQHaDY?pid=ImgDet&rs=1",
+        "description": "Safe and low-impact exercise to work multiple muscle groups.",
+        "duration": "20-30 minutes",
+        "frequency": "2-3 times per week"
+      },
+      {
+        "name": "Pelvic Floor Exercises",
+        "image": "https://rescu.com.au/wp-content/uploads/2014/03/MG_8635.jpeg",
+        "description": "Strengthens pelvic muscles and supports pregnancy.",
+        "duration": "10-15 minutes",
+        "frequency": "Daily"
+      },
+      {
+        "name": "Light Strength Training",
+        "image": "https://www.mamypoko.co.in/blog/wp-content/uploads/2019/01/Resistance-Training.jpg",
+        "description": "Use light weights to maintain muscle tone.",
+        "duration": "15-20 minutes",
+        "frequency": "2-3 times per week"
+      }
+    ]
+  },
+  {
+    "trimester": "Third Trimester",
+    "exercises": [
+      {
+        "name": "Walking",
+        "image": "https://img.freepik.com/free-photo/pregnant-woman-posing-park_1303-10717.jpg?size=626&ext=jpg&ga=GA1.2.424701124.1694464570&semt=ais",
+        "description": "Low-impact exercise to improve cardiovascular health.",
+        "duration": "30 minutes",
+        "frequency": "3-5 times per week"
+      },
+      {
+        "name": "Prenatal Yoga",
+        "image": "https://th.bing.com/th/id/R.39e37e85e6d0490c6046aa41741717ae?rik=s6uggTEQMd7nfA&riu=http%3a%2f%2fvistayoga.com%2fwp-content%2fuploads%2f2017%2f06%2fprenatal-july-2015.jpg&ehk=L0WJNzhm3I4nRBo2rFaGyygsG2f6U9sNDHzobwxx0j8%3d&risl=&pid=ImgRaw&r=0",
+        "description": "Gentle yoga poses to promote flexibility and relaxation.",
+        "duration": "20-30 minutes",
+        "frequency": "2-3 times per week"
+      },
+      {
+        "name": "Swimming",
+        "image": "https://th.bing.com/th/id/OIP.hZkLshSBo5RvO-EVBNHnyQHaDY?pid=ImgDet&rs=1",
+        "description": "Safe and low-impact exercise to work multiple muscle groups.",
+        "duration": "20-30 minutes",
+        "frequency": "2-3 times per week"
+      },
+      {
+        "name": "Pelvic Floor Exercises",
+        "image": "https://rescu.com.au/wp-content/uploads/2014/03/MG_8635.jpeg",
+        "description": "Strengthens pelvic muscles and supports pregnancy.",
+        "duration": "10-15 minutes",
+        "frequency": "Daily"
+      },
+      {
+        "name": "Light Strength Training",
+        "image": "https://www.mamypoko.co.in/blog/wp-content/uploads/2019/01/Resistance-Training.jpg",
+        "description": "Use light weights to maintain muscle tone.",
+        "duration": "15-20 minutes",
+        "frequency": "2-3 times per week"
+      }
+    ]
+  }
+]
