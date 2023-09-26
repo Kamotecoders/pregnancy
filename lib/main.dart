@@ -5,7 +5,6 @@ import 'package:pregnancy/app_router.dart';
 import 'package:pregnancy/repositories/auth_repository.dart';
 import 'package:pregnancy/repositories/user_repository.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
-import 'Screens/Home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

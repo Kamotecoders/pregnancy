@@ -48,7 +48,6 @@ class _MainNavigationState extends State<MainNavigation> {
         ),
         backgroundColor: ColorStyle.primary,
       ),
-      drawer: const Drawer(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: ColorStyle.primary,
         unselectedItemColor: ColorStyle.blackColor,
