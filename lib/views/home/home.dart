@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
                     style: const TextStyle(color: Colors.black),
                   ),
                   const Text(
-                    "Juan Dela Cruz",
+                    "User",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 24,

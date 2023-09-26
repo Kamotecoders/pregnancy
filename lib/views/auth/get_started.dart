@@ -35,7 +35,7 @@ class _GetStartedState extends State<GetStarted> {
                 const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    'Bringing Preganancy to life Development of Mobile Application for Fetal Growth',
+                    'Bringing Pregnancy to Life: A 3D Mobile Application for Fetal Growth Development',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class _GetStartedState extends State<GetStarted> {
                 children: [
                   const Expanded(
                     child: Text(
-                      'Watch your baby grow, log your symptoms and learn what to expect week by week with Growly Pregnancy!',
+                      'Watch your baby grow, log your symptoms and learn what to expect month by month with Growly Pregnancy!',
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w300,
