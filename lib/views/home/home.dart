@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:pregnancy/utils/constants.dart';
+import 'package:pregnancy/widgets/features_card.dart';
 import 'package:pregnancy/widgets/profile.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,169 +54,133 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        Container(
-          height: 180,
-          width: double.infinity,
-          margin: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.teal[100],
-            borderRadius:
-                BorderRadius.circular(10), // Add a 10-pixel border radius
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Image.asset("lib/images/coloredbaby.png"),
-              ),
-              const Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Week 2",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                    ),
-                    Text(
-                      "Day 6",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: GridView.count(
-            primary: false,
-            shrinkWrap: false,
-            padding: const EdgeInsets.all(10),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.teal[100],
-                  borderRadius:
-                      BorderRadius.circular(10), // Add a 10-pixel border radius
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: SvgPicture.asset(
-                          'lib/assets/svg/book.svg',
-                          semanticsLabel: 'A red up arrow',
-                          width: double.infinity,
-                          height: 100,
-                        ),
-                      ),
-                      const Text(
-                        "Lesson",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.teal[100],
-                  borderRadius:
-                      BorderRadius.circular(10), // Add a 10-pixel border radius
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: SvgPicture.asset(
-                          'lib/assets/svg/question.svg',
-                          semanticsLabel: 'A red up arrow',
-                          width: double.infinity,
-                          height: 100,
-                        ),
-                      ),
-                      const Text(
-                        "My Questions?",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.teal[100],
-                  borderRadius:
-                      BorderRadius.circular(10), // Add a 10-pixel border radius
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: SvgPicture.asset(
-                          'lib/assets/svg/sample.svg',
-                          semanticsLabel: 'A red up arrow',
-                          width: double.infinity,
-                          height: 100,
-                        ),
-                      ),
-                      const Text(
-                        "Sample",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.teal[100],
-                  borderRadius:
-                      BorderRadius.circular(10), // Add a 10-pixel border radius
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: SvgPicture.asset(
-                          'lib/assets/svg/water.svg',
-                          semanticsLabel: 'A red up arrow',
-                          width: double.infinity,
-                          height: 100,
-                        ),
-                      ),
-                      const Text(
-                        "Water Reminder",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        DynamicBaby(),
+        const FeaturesContainer(),
       ],
+    );
+  }
+}
+
+class DynamicBaby extends StatelessWidget {
+  DynamicBaby({super.key});
+
+  List<String> _imageUrls = [];
+
+  //dito malalaman kung ilang week na ba yung account
+  int whatWeek(DateTime createdAt) {
+    DateTime currentDate = DateTime.now();
+    Duration difference = currentDate.difference(createdAt);
+    int weeks = (difference.inDays / 7).floor();
+    return weeks;
+  }
+
+  //eto nirereturn nya yung image url kung ano image ang ididisplay
+  String getImageToDisplay(int week) {
+    if (week > 42) {
+      return "Default Image";
+    }
+    return _imageUrls[week];
+  }
+
+  String getDateToday() {
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('MMMM dd, yyyy').format(currentDate);
+    return formattedDate;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 180,
+      width: double.infinity,
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: const Color(0xFF3EB09B),
+        image: const DecorationImage(
+            image: AssetImage('lib/images/week_2.png'), fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              getDateToday(),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(25.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Week 42",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Day 6",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FeaturesContainer extends StatelessWidget {
+  const FeaturesContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        primary: false,
+        shrinkWrap: false,
+        padding: const EdgeInsets.all(10),
+        crossAxisSpacing: 30,
+        mainAxisSpacing: 30,
+        crossAxisCount: 2,
+        children: <Widget>[
+          FeaturesCard(
+            image: "lib/images/lesson.png",
+            title: "Lesson",
+            onTap: () => context.push('/lesson'),
+          ),
+          FeaturesCard(
+            image: "lib/images/assessment.png",
+            title: "Assessment",
+            onTap: () => context.push('/assessment'),
+          ),
+          FeaturesCard(
+            image: "lib/images/growth.png",
+            title: "Bump Growth Chart",
+            onTap: () => context.push('/growth'),
+          ),
+          FeaturesCard(
+            image: "lib/images/tools.png",
+            title: "Tools",
+            onTap: () => context.push('/tools'),
+          ),
+        ],
+      ),
     );
   }
 }

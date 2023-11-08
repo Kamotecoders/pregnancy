@@ -79,7 +79,6 @@ class _ExercisePageState extends State<ExercisePage>
         } else {
           final exercisePlannerList = snapshot.data ?? [];
           List<String> trimesters = getTrimesters(exercisePlannerList).toList();
-
           _tabController =
               TabController(length: trimesters.length, vsync: this);
           generateTabViews(trimesters, exercisePlannerList);

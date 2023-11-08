@@ -19,7 +19,7 @@ class _MainNavigationState extends State<MainNavigation> {
     "Home",
     "Exercise",
     "Calendar",
-    "Weight Tracker",
+    "Developers",
     "Profile"
   ];
   static const List<Widget> _pages = <Widget>[
@@ -83,11 +83,11 @@ class _MainNavigationState extends State<MainNavigation> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.monitor_weight_outlined,
+              Icons.developer_mode_sharp,
               size: 24.0,
               semanticLabel: 'Text to weight tracker',
             ),
-            label: 'Weight',
+            label: 'Developers',
           ),
           BottomNavigationBarItem(
             icon: Icon(

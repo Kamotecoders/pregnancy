@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "question": "When does the embryo's heart start to beat?",
+    "choices": ["5 weeks", "6 weeks", "7 weeks", "8 weeks"],
+    "answer": "A"
+  },
+  {
+    "id": 2,
+    "question": "When is the embryo considered a fetus?",
+    "choices": ["10 weeks", "12 weeks", "14 weeks", "16 weeks"],
+    "answer": "A"
+  },
+  {
+    "id": 3,
+    "question": "When do the fetus's kidneys start to produce urine?",
+    "choices": ["14 weeks", "16 weeks", "18 weeks", "20 weeks"],
+    "answer": "A"
+  },
+  {
+    "id": 4,
+    "question": "When does the fetus start to move around in the womb?",
+    "choices": ["16 weeks", "18 weeks", "20 weeks", "22 weeks"],
+    "answer": "B"
+  },
+  {
+    "id": 5,
+    "question": "When does the fetus's sense of hearing develop?",
+    "choices": ["18 weeks", "20 weeks", "22 weeks", "24 weeks"],
+    "answer": "A"
+  },
+  {
+    "id": 6,
+    "question": "When does the fetus's sense of taste develop?",
+    "choices": ["20 weeks", "22 weeks", "24 weeks", "26 weeks"],
+    "answer": "C"
+  },
+  {
+    "id": 7,
+    "question": "When does the fetus's sense of sight develop?",
+    "choices": ["22 weeks", "24 weeks", "26 weeks", "28 weeks"],
+    "answer": "D"
+  },
+  {
+    "id": 8,
+    "question": "When does the fetus start to produce surfactant, a substance that helps it breathe after birth?",
+    "choices": ["24 weeks", "26 weeks", "28 weeks", "30 weeks"],
+    "answer": "C"
+  },
+  {
+    "id": 9,
+    "question": "When does the fetus start to turn head-down in the uterus in preparation for birth?",
+    "choices": ["26 weeks", "28 weeks", "30 weeks", "32 weeks"],
+    "answer": "B"
+  },
+  {
+    "id": 10,
+    "question": "When does the fetus typically reach full term?",
+    "choices": ["36 weeks", "37 weeks", "38 weeks", "39 weeks"],
+    "answer": "C"
+  },
+  {
+    "id": 11,
+    "question": "Which of the following is NOT a major milestone in fetal growth and development?",
+    "choices": [
+      "Heartbeat begins",
+      "Lungs develop",
+      "Brain develops",
+      "Hair grows"
+    ],
+    "answer": "D"
+  },
+  {
+    "id": 12,
+    "question": "Which of the following is the first organ to develop in the fetus?",
+    "choices": ["Heart", "Brain", "Liver", "Kidneys"],
+    "answer": "A"
+  },
+  {
+    "id": 12,
+    "question": "Which of the following is the last major organ to develop in the fetus?",
+    "choices": ["Lungs", "Brain", "Liver", "Kidneys"],
+    "answer": "A"
+  },
+  {
+    "id": 14,
+    "question": "Which of the following is NOT a sense that develops in the fetus?",
+    "choices": ["Sight", "Hearing", "Taste", "Smell"],
+    "answer": "D"
+  },
+  {
+    "id": 15,
+    "question": "Which of the following is the heaviest organ in the fetus?",
+    "choices": ["Brain", "Heart", "Liver", "Kidneys"],
+    "answer": "C"
+  },
+  {
+    "id": 16,
+    "question": "Which of the following is the most important nutrient for fetal brain development?",
+    "choices": ["Folate", "Iron", "Calcium", "Vitamin D"],
+    "answer": "A"
+  },
+  {
+    "id": 17,
+    "question": "Which of the following is the most common birth defect in the United States?",
+    "choices": [
+      "Congenital heart defects",
+      "Neural tube defects",
+      "Cleft lip and palate",
+      "Down syndrome"
+    ],
+    "answer": "A"
+  },
+  {
+    "id": 18,
+    "question": "Which of the following is a risk factor for preterm birth?",
+    "choices": ["Smoking", "Alcohol use", "Drug use", "All of the above"],
+    "answer": "D"
+  },
+  {
+    "id": 19,
+    "question": "Which of the following is a sign of fetal distress?",
+    "choices": [
+      "Decreased movement",
+      "Reduced heart rate",
+      "Meconium-stained amniotic fluid",
+      "All of the above"
+    ],
+    "answer": "D"
+  },
+  {
+    "id": 20,
+    "question": "Which of the following is the most important thing a pregnant woman can do to promote healthy fetal growth and development?",
+    "choices": [
+      "Eat a healthy diet",
+      "Get regular exercise",
+      "Take prenatal vitamins",
+      "Get enough sleep"
+    ],
+    "answer": "A"
+  }
+]
