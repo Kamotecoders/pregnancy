@@ -14,20 +14,20 @@ class ProfileImageWithButton extends StatelessWidget {
         onTap();
       },
       child: CircleAvatar(
-        radius: 50, // Adjust the size as needed
-        backgroundColor: Colors.grey[300], // Placeholder background color
+        radius: 50,
+        backgroundColor: Colors.grey[300],
         child: ClipOval(
           child: imageUrl.isEmpty
               ? Icon(
                   Icons.person,
-                  size: size, // Size of the icon
-                  color: Colors.grey, // Placeholder icon color
+                  size: size,
+                  color: Colors.grey,
                 )
               : Image.network(
                   imageUrl,
-                  width: size, // Width of the image
-                  height: size, // Height of the image
-                  fit: BoxFit.cover, // Adjust the fit as needed
+                  width: size,
+                  height: size,
+                  fit: BoxFit.cover,
                 ),
         ),
       ),

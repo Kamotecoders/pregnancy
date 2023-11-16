@@ -3,15 +3,17 @@ class Users {
   String name;
   final String photo;
   String phone;
-  final String email;
 
-  Users({
-    required this.id,
-    required this.name,
-    required this.photo,
-    required this.phone,
-    required this.email,
-  });
+  final String email;
+  final AccountType type;
+
+  Users(
+      {required this.id,
+      required this.name,
+      required this.photo,
+      required this.phone,
+      required this.email,
+      required this.type});
 
   factory Users.fromJson(Map<String, dynamic> json) {
     return Users(
@@ -20,6 +22,7 @@ class Users {
       photo: json['photo'] as String,
       phone: json['phone'] as String,
       email: json['email'] as String,
+      type: _accountTypeFromString(json['type'] as String),
     );
   }
 
@@ -30,6 +33,19 @@ class Users {
       'photo': photo,
       'phone': phone,
       'email': email,
+      'type': _accountTypeToString(type),
     };
   }
 }
+
+String _accountTypeToString(AccountType type) {
+  return type.toString().split('.').last;
+}
+
+AccountType _accountTypeFromString(String typeString) {
+  return AccountType.values.firstWhere(
+    (e) => e.toString().split('.').last == typeString,
+  );
+}
+
+enum AccountType { ADMIN, USER }

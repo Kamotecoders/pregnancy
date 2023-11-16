@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pregnancy/app_router.dart';
 import 'package:pregnancy/repositories/auth_repository.dart';
+import 'package:pregnancy/repositories/file_repository.dart';
 import 'package:pregnancy/repositories/user_repository.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
 
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => UserRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => FileRepository(),
         ),
       ],
       child: MaterialApp.router(

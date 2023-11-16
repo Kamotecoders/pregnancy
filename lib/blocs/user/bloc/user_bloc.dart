@@ -38,7 +38,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       emit(UserLoadingState());
       final userProfile = await _userRepository.getUserProfile(event.userID);
-      await Future.delayed(const Duration(seconds: 1));
+
       if (userProfile != null) {
         emit(UserSuccessState<Users>(userProfile));
       }
@@ -51,7 +51,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       UpdateUserInfo event, Emitter<UserState> emit) async {
     try {
       emit(UserLoadingState());
-      await Future.delayed(const Duration(seconds: 1));
+
       await _userRepository.updateUserProfile(event.users);
       emit(const UserSuccessState<String>("Successfully Updated"));
     } catch (e) {

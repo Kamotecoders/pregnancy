@@ -165,22 +165,6 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         pathParameters: {'users': json.encode(state.data)});
                   },
                 ),
-                ProfileActionButtons(
-                  title: "My Health Info",
-                  onTap: () {},
-                ),
-                ProfileActionButtons(
-                  title: "Notifications",
-                  onTap: () {},
-                ),
-                ProfileActionButtons(
-                  title: "Settings",
-                  onTap: () {},
-                ),
-                ProfileActionButtons(
-                  title: "Technical Support",
-                  onTap: () {},
-                ),
                 BlocConsumer<AuthBloc, AuthState>(
                   listener: (context, state) {
                     print(state);

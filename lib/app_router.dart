@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:pregnancy/models/user.dart';
+import 'package:pregnancy/views/admin/pdf_viewer.dart';
 
 import 'package:pregnancy/views/auth/forgot_password.dart';
 import 'package:pregnancy/views/auth/get_started.dart';
@@ -73,6 +74,16 @@ class AppRouter {
         path: '/home',
         builder: (BuildContext context, GoRouterState state) {
           return const MainNavigation();
+        },
+      ),
+      GoRoute(
+        path: '/module/:url',
+        builder: (BuildContext context, GoRouterState state) {
+          final String url = state.pathParameters['url'] ?? "";
+
+          return ViewPDFPage(
+            url: url,
+          );
         },
       ),
       GoRoute(

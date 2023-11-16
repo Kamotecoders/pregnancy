@@ -151,9 +151,8 @@ class FeaturesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.count(
-        physics: NeverScrollableScrollPhysics(),
-        primary: false,
-        shrinkWrap: false,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         padding: const EdgeInsets.all(10),
         crossAxisSpacing: 30,
         mainAxisSpacing: 30,

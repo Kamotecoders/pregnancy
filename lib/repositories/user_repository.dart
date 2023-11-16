@@ -33,7 +33,6 @@ class UserRepository {
     }
   }
 
-  // Delete user profile (optional)
   Future<void> deleteUserProfile(String userId) async {
     await collectionReference.doc(userId).delete();
   }

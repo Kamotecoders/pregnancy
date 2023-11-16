@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoadingState());
       var result = await _authRepository.signInWithEmailAndPassword(
           email: event.email, password: event.password);
-      await Future.delayed(const Duration(seconds: 1));
+
       if (result != null) {
         emit(AuthSuccessState<User>(result));
       }
@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       UserChangedEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     final User? currentUser = _authRepository.currentUser;
-    await Future.delayed(const Duration(seconds: 1));
+
     if (currentUser != null) {
       emit(AuthSuccessState<User>(currentUser));
     } else {
@@ -53,7 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _authLoggedOutEvent(LogoutEvent event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoadingState());
-      await Future.delayed(const Duration(seconds: 1));
+
       print("Signing out");
       await _authRepository.signOut();
       emit(UnAuthenticatedState());
@@ -65,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _signUpEvent(SignUpEvent event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoadingState());
-      await Future.delayed(const Duration(seconds: 1));
+
       var result = await _authRepository.registerWithEmailAndPassword(
           email: event.email, password: event.password);
       Users users = Users(
@@ -73,7 +73,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           name: event.name,
           photo: '',
           phone: event.phone,
-          email: event.email);
+          email: event.email,
+          type: AccountType.ADMIN);
       emit(AuthSuccessState<Users>(users));
     } catch (e) {
       emit(AuthErrorState(e.toString()));
@@ -84,7 +85,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ResetPasswordEvent event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoadingState());
-      await Future.delayed(const Duration(seconds: 1));
 
       await _authRepository.resetPassword(event.email);
       emit(const AuthSuccessState<String>("Successfuly sent"));
@@ -97,7 +97,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ReauthenticateUser event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoadingState());
-      await Future.delayed(const Duration(seconds: 1));
+
       _authRepository.reAuthenticateUser(
           _authRepository.currentUser!, event.currentPassword);
       add(ChangeUserPassword(_authRepository.currentUser!, event.newPassword));

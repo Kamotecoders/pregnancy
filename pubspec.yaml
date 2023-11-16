@@ -45,6 +45,9 @@ dependencies:
   table_calendar: ^3.0.9
   flutter_svg: ^2.0.7
   intl: ^0.18.1
+  file_picker: ^6.1.1
+  firebase_storage: ^11.5.1
+  easy_pdf_viewer: ^1.0.7
 
 dev_dependencies:
   flutter_test:
