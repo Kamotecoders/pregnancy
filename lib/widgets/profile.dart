@@ -4,7 +4,7 @@ class ProfileImageWithButton extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
   final double size;
-  ProfileImageWithButton(
+  const ProfileImageWithButton(
       {required this.imageUrl, required this.onTap, this.size = 50});
 
   @override
@@ -25,8 +25,8 @@ class ProfileImageWithButton extends StatelessWidget {
                 )
               : Image.network(
                   imageUrl,
-                  width: size,
-                  height: size,
+                  width: double.infinity,
+                  height: double.infinity,
                   fit: BoxFit.cover,
                 ),
         ),

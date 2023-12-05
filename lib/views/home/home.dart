@@ -16,47 +16,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    getGreeting(),
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal),
-                  ),
-                  const Text(
-                    "John Doe",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ProfileImageWithButton(
-                imageUrl: "",
-                onTap: () {},
-                size: 50.0,
-              ),
-            ),
-          ],
-        ),
-        DynamicBaby(),
-        const FeaturesContainer(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          DynamicBaby(),
+          const FeaturesContainer(),
+        ],
+      ),
     );
   }
 }
@@ -124,14 +90,14 @@ class DynamicBaby extends StatelessWidget {
                     "Week 42",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 26,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "Day 6",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 24,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -149,37 +115,35 @@ class FeaturesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.count(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(10),
-        crossAxisSpacing: 30,
-        mainAxisSpacing: 30,
-        crossAxisCount: 2,
-        children: <Widget>[
-          FeaturesCard(
-            image: "lib/images/lesson.png",
-            title: "Lesson",
-            onTap: () => context.push('/lesson'),
-          ),
-          FeaturesCard(
-            image: "lib/images/assessment.png",
-            title: "Assessment",
-            onTap: () => context.push('/assessment'),
-          ),
-          FeaturesCard(
-            image: "lib/images/growth.png",
-            title: "Bump Growth Chart",
-            onTap: () => context.push('/growth'),
-          ),
-          FeaturesCard(
-            image: "lib/images/tools.png",
-            title: "Tools",
-            onTap: () => context.push('/tools'),
-          ),
-        ],
-      ),
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(10),
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      crossAxisCount: 2,
+      children: <Widget>[
+        FeaturesCard(
+          image: "lib/images/lesson.png",
+          title: "Lesson",
+          onTap: () => context.push('/lesson'),
+        ),
+        FeaturesCard(
+          image: "lib/images/assessment.png",
+          title: "Assessment",
+          onTap: () => context.push('/assessment'),
+        ),
+        FeaturesCard(
+          image: "lib/images/growth.png",
+          title: "Fetal Growth  Development",
+          onTap: () => context.push('/growth'),
+        ),
+        FeaturesCard(
+          image: "lib/images/tools.png",
+          title: "Tools",
+          onTap: () => context.push('/tools'),
+        ),
+      ],
     );
   }
 }

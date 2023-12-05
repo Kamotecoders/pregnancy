@@ -74,7 +74,10 @@ class _QuizPageState extends State<QuizPage> {
                 child: Row(
                   children: [
                     const Icon(Icons.arrow_back_ios),
-                    Text(backTitle(_currentPage))
+                    Text(
+                      backTitle(_currentPage),
+                      style: const TextStyle(fontSize: 10),
+                    )
                   ],
                 ), // You can use any custom icon or widget
               ),
@@ -102,6 +105,9 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     NextOrSubmitButton(
                         isSubmit: _currentPage == quizList.length - 1,
+                        onSubmit: () {
+                          print(context.read<QuizServiceImpl>().getAnswers());
+                        },
                         onTap: () {
                           setState(() {
                             if (_currentPage < quizList.length) {
@@ -235,19 +241,21 @@ class _QuizQuestionsContainerState extends State<QuizQuestionsContainer> {
 class NextOrSubmitButton extends StatelessWidget {
   final bool isSubmit;
   final VoidCallback onTap;
+  final VoidCallback onSubmit;
   const NextOrSubmitButton(
-      {super.key, required this.isSubmit, required this.onTap});
+      {super.key,
+      required this.isSubmit,
+      required this.onTap,
+      required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
+    final result = context.read<QuizServiceImpl>().getAnswers();
     return isSubmit
         ? SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                final result = context.read<QuizServiceImpl>().getAnswers();
-                print(result);
-              },
+              onPressed: onSubmit,
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(const Color(
                     0xFF004643)), // Set the button's background color

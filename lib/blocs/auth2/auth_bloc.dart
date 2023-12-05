@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           photo: '',
           phone: event.phone,
           email: event.email,
-          type: AccountType.ADMIN);
+          type: AccountType.USER);
       emit(AuthSuccessState<Users>(users));
     } catch (e) {
       emit(AuthErrorState(e.toString()));

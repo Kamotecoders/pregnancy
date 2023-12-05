@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:pregnancy/models/modules.dart';
 import 'package:pregnancy/models/user.dart';
 import 'package:pregnancy/views/admin/pdf_viewer.dart';
 
@@ -21,6 +22,7 @@ import 'package:pregnancy/views/profile/features/quiz.dart';
 import 'package:pregnancy/views/profile/features/tools.dart';
 
 import 'package:pregnancy/widgets/navigation.dart';
+import 'package:pregnancy/widgets/view_pdf.dart';
 
 class AppRouter {
   late final GoRouter router = GoRouter(
@@ -77,12 +79,13 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: '/module/:url',
+        path: '/module',
         builder: (BuildContext context, GoRouterState state) {
-          final String url = state.pathParameters['url'] ?? "";
+          final Module module =
+              Module.fromJson(state.extra as Map<String, dynamic>);
 
-          return ViewPDFPage(
-            url: url,
+          return ViewPDF(
+            module: module,
           );
         },
       ),

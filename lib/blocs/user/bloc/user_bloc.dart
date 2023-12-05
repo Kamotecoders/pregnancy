@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,6 +20,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<CreateUser>(_createUser);
     on<GetUserProfile>(_getUserProfile);
     on<UpdateUserInfo>(_updateUserInfo);
+    on<UploadImageProfile>(_onUploadImageProfile);
   }
 
   Future<void> _createUser(CreateUser event, Emitter<UserState> emit) async {
@@ -54,6 +56,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       await _userRepository.updateUserProfile(event.users);
       emit(const UserSuccessState<String>("Successfully Updated"));
+    } catch (e) {
+      emit(UserErrorState(e.toString()));
+    }
+  }
+
+  Future<void> _onUploadImageProfile(
+      UploadImageProfile event, Emitter<UserState> emit) async {
+    try {
+      emit(UserLoadingState());
+      String? result = await _userRepository.uploadFile(event.file, event.uid);
+      if (result != null) {
+        await _userRepository.updateProfileImage(event.uid, result);
+        emit(UserSuccessState<String>(result));
+      } else {
+        emit(UserErrorState("Unknown error"));
+      }
     } catch (e) {
       emit(UserErrorState(e.toString()));
     }

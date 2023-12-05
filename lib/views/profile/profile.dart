@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -80,22 +81,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-Future<void> _imagePicker(ScaffoldMessengerState scaffoldMessenger) async {
+Future<void> _imagePicker(BuildContext context, String userID) async {
   print("Image picker clicked");
-  final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  if (image != null) {
-    scaffoldMessenger.showSnackBar(
-      const SnackBar(
-        content: Text('Image Picked'),
-      ),
-    );
-  } else {
-    scaffoldMessenger.showSnackBar(
-      const SnackBar(
-        content: Text('Error Picking image'),
-      ),
-    );
-  }
 }
 
 class ProfileInfo extends StatefulWidget {
@@ -117,19 +104,18 @@ class _ProfileInfoState extends State<ProfileInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, state) {
-        if (state is UserLoadingState) {
-          return const LoadingDialog(
-            message: "Getting User Profile",
-          );
-        }
-        if (state is UserErrorState) {
-          return Center(
-            child: Text(state.message),
-          );
-        }
-        if (state is UserSuccessState<Users>) {
+    return FutureBuilder<Users?>(
+      future: context.read<UserRepository>().getUserProfile(widget.userID),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+              child: CircularProgressIndicator()); // or a loading indicator
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.data == null) {
+          return const Center(child: Text('User not found'));
+        } else {
+          Users user = snapshot.data!;
           return Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -137,38 +123,74 @@ class _ProfileInfoState extends State<ProfileInfo> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ProfileImageWithButton(
-                      imageUrl: state.data.photo,
-                      onTap: () {
-                        _imagePicker(
-                          ScaffoldMessenger.of(context),
-                        );
-                      }),
+                BlocConsumer<UserBloc, UserState>(
+                  listener: (context, state) {
+                    if (state is UserSuccessState<String>) {
+                      setState(() {
+                        user.photo = state.data;
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("successful")));
+                    }
+                    if (state is UserErrorState) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(state.message)));
+                    }
+                  },
+                  builder: (context, state) {
+                    return state is UserLoadingState
+                        ? const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ProfileImageWithButton(
+                                imageUrl: user.photo,
+                                onTap: () async {
+                                  final image = await ImagePicker()
+                                      .pickImage(source: ImageSource.gallery);
+                                  if (image != null) {
+                                    File file = File(image.path);
+                                    setState(() {
+                                      context.read<UserBloc>().add(
+                                          UploadImageProfile(
+                                              file, widget.userID));
+                                    });
+                                  } else {
+                                    print(
+                                        'create quiz page : error picking image');
+                                  }
+                                }),
+                          );
+                  },
                 ),
                 Text(
-                  state.data.name,
+                  user.name,
                   style: MyTextStyles.header,
                 ),
                 ProfileActionButtons(
                   title: "Edit Profile",
                   onTap: () {
                     context.pushNamed('edit-profile',
-                        pathParameters: {'users': json.encode(state.data)});
+                        pathParameters: {'users': json.encode(user)});
                   },
                 ),
                 ProfileActionButtons(
                   title: "Change Password",
                   onTap: () {
                     context.pushNamed('change-password',
-                        pathParameters: {'users': json.encode(state.data)});
+                        pathParameters: {'users': json.encode(user)});
                   },
                 ),
                 BlocConsumer<AuthBloc, AuthState>(
                   listener: (context, state) {
                     print(state);
-                    if (state is AuthSuccessState<String>) {}
+                    if (state is AuthSuccessState<String>) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(state.data)));
+                    }
                     if (state is AuthErrorState) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -198,9 +220,6 @@ class _ProfileInfoState extends State<ProfileInfo> {
             ),
           );
         }
-        return Center(
-          child: Text("PROFILE INFO: unkown error"),
-        );
       },
     );
   }

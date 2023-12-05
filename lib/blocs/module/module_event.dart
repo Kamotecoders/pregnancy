@@ -9,13 +9,22 @@ sealed class ModuleEvent extends Equatable {
 
 class UploadFileEvent extends ModuleEvent {
   final File file;
-  const UploadFileEvent(this.file);
+  final String name;
+  const UploadFileEvent(this.file, this.name);
   @override
-  List<Object> get props => [file];
+  List<Object> get props => [file, name];
 }
 
 class GetAllModulesEvent extends ModuleEvent {
   const GetAllModulesEvent();
   @override
   List<Object> get props => [];
+}
+
+class DeleteModule extends ModuleEvent {
+  final String moduleID;
+  final String path;
+  const DeleteModule(this.moduleID, this.path);
+  @override
+  List<Object> get props => [moduleID];
 }

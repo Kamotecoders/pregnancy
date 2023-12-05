@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:pregnancy/models/user.dart';
 
 class UserRepository {
   final FirebaseFirestore _firestore;
   late CollectionReference collectionReference;
-  UserRepository({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  UserRepository({
+    FirebaseFirestore? firestore,
+    FirebaseStorage? storage,
+  }) : _firestore = firestore ?? FirebaseFirestore.instance {
     collectionReference = _firestore.collection('users');
   }
 
@@ -20,8 +26,8 @@ class UserRepository {
         .set(users.toJson(), SetOptions(merge: true));
   }
 
-  Future<void> updateUserPhoto(String userID, String photoURL) async {
-    await collectionReference.doc(userID).update({'photo': photoURL});
+  Future<void> updateProfileImage(String uid, String imageURL) async {
+    await collectionReference.doc(uid).update({'photo': imageURL});
   }
 
   Future<Users?> getUserProfile(String userId) async {
@@ -35,5 +41,22 @@ class UserRepository {
 
   Future<void> deleteUserProfile(String userId) async {
     await collectionReference.doc(userId).delete();
+  }
+
+  Future<String?> uploadFile(File file, String uid) async {
+    try {
+      final Reference storageRef = _storage
+          .ref()
+          .child('users')
+          .child('${DateTime.now().millisecondsSinceEpoch}');
+      final UploadTask uploadTask = storageRef.putFile(file);
+      await uploadTask.whenComplete(() => null);
+      final imageUrl = await storageRef.getDownloadURL();
+
+      return imageUrl;
+    } catch (e) {
+      print('Error uploading file: $e');
+      return null;
+    }
   }
 }

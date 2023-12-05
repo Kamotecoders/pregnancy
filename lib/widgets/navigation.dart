@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pregnancy/blocs/module/module_bloc.dart';
 import 'package:pregnancy/repositories/file_repository.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
+
 import 'package:pregnancy/views/admin/admin.dart';
 import 'package:pregnancy/views/calendar/calendar.dart';
 import 'package:pregnancy/views/exercise/exercise.dart';
@@ -84,7 +86,6 @@ class _UserBottomNavState extends State<UserBottomNav> {
   ];
   static const List<Widget> _pages = <Widget>[
     HomePage(),
-    ExercisePage(),
     CalendarPage(),
     WeightTrackerPage(),
     ProfilePage(),
@@ -124,14 +125,6 @@ class _UserBottomNavState extends State<UserBottomNav> {
               semanticLabel: 'Text to home',
             ),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.run_circle_outlined,
-              size: 24.0,
-              semanticLabel: 'Text to exercise',
-            ),
-            label: 'Exercise',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -185,17 +178,109 @@ class _AdminBottomNavState extends State<AdminBottomNav> {
     });
   }
 
-  Future<File?> pickAndReadPdf() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
+  TextEditingController _moduleController = TextEditingController();
+  File? _selectedFile;
 
-    if (result != null) {
-      return File(result.files.single.path!);
-    } else {
-      return null;
-    }
+  void _showBottomSheet(BuildContext context, File? file, VoidCallback onTap) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const Text("Create Module"),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _moduleController,
+                      decoration: const InputDecoration(
+                        labelText: 'Module Name',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                          );
+                          if (result != null) {
+                            setState(() {
+                              _selectedFile = File(result.files.single.path!);
+                            });
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                          color: ColorStyle.primary,
+                        ),
+                        label: const Text(
+                          "Add a PDF",
+                          style: TextStyle(
+                            color: ColorStyle.primary,
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.all(10.0),
+                          side: const BorderSide(
+                            color: ColorStyle.primary,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    if (_selectedFile != null)
+                      ListTile(
+                        leading: const Icon(Icons.file_present),
+                        title: Text(
+                            Uri.parse(_selectedFile!.path).pathSegments.last),
+                      ),
+                    if (_selectedFile != null)
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            onTap();
+                            context.pop();
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            "Save Module",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorStyle.primary,
+                            padding: const EdgeInsets.all(15.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -238,35 +323,37 @@ class _AdminBottomNavState extends State<AdminBottomNav> {
           ),
         ],
       ),
-      body: BlocConsumer<ModuleBloc, ModuleState>(
-        listener: (context, state) {
-          if (state is ModuleErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
-          }
-          if (state is ModuleSuccessState<String>) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text("Success")));
-          }
-        },
-        builder: (context, state) {
-          return state is ModuleLoadingState
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : _pages[_selectedIndex];
-        },
-      ),
+      body: _pages[_selectedIndex],
       floatingActionButton: _selectedIndex == 0
-          ? FloatingActionButton(
-              onPressed: () async {
-                File? result = await pickAndReadPdf();
-                if (result != null) {
-                  context.read<ModuleBloc>().add(UploadFileEvent(result));
+          ? BlocConsumer<ModuleBloc, ModuleState>(
+              listener: (context, state) {
+                if (state is ModuleErrorState) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(state.message)));
+                }
+                if (state is ModuleSuccessState<String>) {
+                  setState(() {
+                    _selectedFile = null;
+                  });
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(state.data)));
                 }
               },
-              backgroundColor: ColorStyle.primary,
-              child: const Icon(Icons.add),
+              builder: (context, state) {
+                return state is ModuleLoadingState
+                    ? const CircularProgressIndicator()
+                    : FloatingActionButton(
+                        onPressed: () {
+                          _showBottomSheet(context, _selectedFile, () {
+                            String moduleName = _moduleController.text;
+                            context.read<ModuleBloc>().add(
+                                UploadFileEvent(_selectedFile!, moduleName));
+                          });
+                        },
+                        backgroundColor: ColorStyle.primary,
+                        child: const Icon(Icons.add),
+                      );
+              },
             )
           : null,
     );
