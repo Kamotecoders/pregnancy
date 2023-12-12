@@ -49,6 +49,8 @@ dependencies:
   firebase_storage: ^11.5.1
   easy_pdf_viewer: ^1.0.7
   syncfusion_flutter_pdfviewer: ^23.2.5
+  video_player: ^2.8.1
+  chewie: ^1.7.4
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +81,15 @@ flutter:
     - lib/assets/data/pregnant.json
 
     - lib/assets/svg/
+    - lib/assets/videos/m1.mp4
+    - lib/assets/videos/m2.mp4
+    - lib/assets/videos/m3.mp4
+    - lib/assets/videos/m4.mp4
+    - lib/assets/videos/m5.mp4
+    - lib/assets/videos/m6.mp4
+    - lib/assets/videos/m7.mp4
+    - lib/assets/videos/m8.mp4
+    - lib/assets/videos/m9.mp4
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

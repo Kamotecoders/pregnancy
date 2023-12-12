@@ -1,48 +1,56 @@
-
-  [
-    {
-      "month": "1st month",
-      "image": "lib/images/1.png",
-      "description": "During the first month, the fertilized egg attaches to the uterine wall, and the embryo begins to develop. Basic structures like the neural tube and heart start forming."
-    },
-    {
-      "month": "2nd month",
-      "image": "lib/images/2.png",
-      "description": "By the second month, the embryo is now called a fetus. Organs and facial features are beginning to take shape. The heart is beating, and limb buds are forming."
-    },
-    {
-      "month": "3rd month",
-      "image": "lib/images/3.png",
-      "description": "During the third month, the fetus is fully formed and is now about the size of a lime. Organs continue to mature, and the baby starts to move its arms and legs."
-    },
-    {
-      "month": "4th month",
-      "image": "lib/images/4.png",
-      "description": "In the fourth month, the fetus is about the size of an avocado. Facial features become more defined, and the baby can make sucking motions with its mouth."
-    },
-    {
-      "month": "5th month",
-      "image": "lib/images/5.png",
-      "description": "By the fifth month, the baby's movements are more pronounced, and the mother may start feeling the first kicks. Hair and nails begin to grow, and the fetus can hear sounds from the outside world."
-    },
-    {
-      "month": "6th month",
-      "image": "lib/images/6.png",
-      "description": "In the sixth month, the baby's senses are developing further. The eyes can open, and the baby can respond to light and sound. Lung development is also underway."
-    },
-    {
-      "month": "7th month",
-      "image": "lib/images/7.png",
-      "description": "During the seventh month, the baby's lungs continue to mature. The fetus is more active, and the mother may experience Braxton Hicks contractions as the body prepares for labor."
-    },
-    {
-      "month": "8th month",
-      "image": "lib/images/8.png",
-      "description": "In the eighth month, the baby's organs are almost fully developed. The fetus gains weight rapidly, and the mother may feel a mix of excitement and anticipation as the due date approaches."
-    },
-    {
-      "month": "9th month",
-      "image": "lib/images/9.png",
-      "description": "During the ninth month, the baby is considered full-term and ready for birth. The mother may experience signs of labor, and the baby's position in the uterus prepares for the upcoming delivery."
-    }
-  ]
+[
+  {
+    "month": "1st month",
+    "image": "lib/images/1.png",
+    "video": "lib/assets/videos/m1.mp4",
+    "description": "During the first month, the fertilized egg attaches to the uterine wall, and the embryo begins to develop. Basic structures like the neural tube and heart start forming."
+  },
+  {
+    "month": "2nd month",
+    "image": "lib/images/2.png",
+    "video": "lib/assets/videos/m2.mp4",
+    "description": "By the second month, the embryo is now called a fetus. Organs and facial features are beginning to take shape. The heart is beating, and limb buds are forming."
+  },
+  {
+    "month": "3rd month",
+    "image": "lib/images/3.png",
+    "video": "lib/assets/videos/m3.mp4",
+    "description": "During the third month, the fetus is fully formed and is now about the size of a lime. Organs continue to mature, and the baby starts to move its arms and legs."
+  },
+  {
+    "month": "4th month",
+    "image": "lib/images/4.png",
+    "video": "lib/assets/videos/m4.mp4",
+    "description": "In the fourth month, the fetus is about the size of an avocado. Facial features become more defined, and the baby can make sucking motions with its mouth."
+  },
+  {
+    "month": "5th month",
+    "image": "lib/images/5.png",
+    "video": "lib/assets/videos/m5.mp4",
+    "description": "By the fifth month, the baby's movements are more pronounced, and the mother may start feeling the first kicks. Hair and nails begin to grow, and the fetus can hear sounds from the outside world."
+  },
+  {
+    "month": "6th month",
+    "image": "lib/images/6.png",
+    "video": "lib/assets/videos/m6.mp4",
+    "description": "In the sixth month, the baby's senses are developing further. The eyes can open, and the baby can respond to light and sound. Lung development is also underway."
+  },
+  {
+    "month": "7th month",
+    "image": "lib/images/7.png",
+    "video": "lib/assets/videos/m7.mp4",
+    "description": "During the seventh month, the baby's lungs continue to mature. The fetus is more active, and the mother may experience Braxton Hicks contractions as the body prepares for labor."
+  },
+  {
+    "month": "8th month",
+    "image": "lib/images/8.png",
+    "video": "lib/assets/videos/m8.mp4",
+    "description": "In the eighth month, the baby's organs are almost fully developed. The fetus gains weight rapidly, and the mother may feel a mix of excitement and anticipation as the due date approaches."
+  },
+  {
+    "month": "9th month",
+    "image": "lib/images/9.png",
+    "video": "lib/assets/videos/m9.mp4",
+    "description": "During the ninth month, the baby is considered full-term and ready for birth. The mother may experience signs of labor, and the baby's position in the uterus prepares for the upcoming delivery."
+  }
+]

@@ -99,10 +99,6 @@ class ModuleCard extends StatelessWidget {
                 child: Text(
                   module.name,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
                 ),
               ),
             ],
