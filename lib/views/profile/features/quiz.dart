@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pregnancy/blocs/assessments/assessment_bloc.dart';
 import 'package:pregnancy/models/quiz.dart';
-import 'package:pregnancy/service/quiz_service.dart';
+import 'package:pregnancy/repositories/assesment_repository.dart';
+import 'package:pregnancy/repositories/auth_repository.dart';
+import 'package:pregnancy/utils/constants.dart';
 import 'package:pregnancy/widgets/score_container.dart';
+
+import '../../../models/assesments.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -17,6 +22,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   int _currentPage = 0;
+  List<int> answerList = List.generate(20, (index) => -1);
   String backTitle(int currentPage) {
     if (currentPage == 0) {
       return "back";
@@ -24,14 +30,16 @@ class _QuizPageState extends State<QuizPage> {
     return "previous";
   }
 
+  List<String?> answers = [];
   Future<List<QuizQuestion>> loadJsonData() async {
     try {
       final jsonString =
           await rootBundle.loadString('lib/assets/data/quiz.json');
 
       final List<dynamic> jsonList = json.decode(jsonString);
+      final quiz = jsonList.map((json) => QuizQuestion.fromJson(json)).toList();
 
-      return jsonList.map((json) => QuizQuestion.fromJson(json)).toList();
+      return quiz;
     } catch (e) {
       print('Error loading JSON: $e');
       return [];
@@ -57,7 +65,6 @@ class _QuizPageState extends State<QuizPage> {
               child: Center(child: Text('Error: ${snapshot.error}')));
         } else {
           final quizList = snapshot.data ?? [];
-          print("quiz :  ${quizList.length}");
           return Scaffold(
             appBar: AppBar(
               leading: GestureDetector(
@@ -74,18 +81,16 @@ class _QuizPageState extends State<QuizPage> {
                 child: Row(
                   children: [
                     const Icon(Icons.arrow_back_ios),
-                    Text(
-                      backTitle(_currentPage),
-                      style: const TextStyle(fontSize: 10),
-                    )
+                    Text(backTitle(_currentPage))
                   ],
                 ), // You can use any custom icon or widget
               ),
               title: Text('${_currentPage + 1}/${quizList.length}'),
               centerTitle: true,
             ),
-            body: RepositoryProvider(
-              create: (context) => QuizServiceImpl(questions: quizList),
+            body: BlocProvider(
+              create: (context) => AssessmentBloc(
+                  assessmentRepository: context.read<AssessmentRepository>()),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -97,101 +102,115 @@ class _QuizPageState extends State<QuizPage> {
                     QuizQuestionsContainer(question: quizList[_currentPage]),
                     Expanded(
                       child: Center(
-                        child: ChoicesList(
-                          questionIndex: _currentPage,
-                          questions: quizList[_currentPage],
+                        child: ListView.builder(
+                          key: UniqueKey(),
+                          shrinkWrap: true,
+                          itemCount: quizList[_currentPage].choices.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final isSelected =
+                                answerList[_currentPage] == index;
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      answerList[_currentPage] = index;
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty
+                                        .resolveWith<Color>(
+                                      (states) {
+                                        return isSelected
+                                            ? Colors.green
+                                            : Colors.white;
+                                      },
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(
+                                      quizList[_currentPage].choices[index],
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
-                    NextOrSubmitButton(
-                        isSubmit: _currentPage == quizList.length - 1,
-                        onSubmit: () {
-                          print(context.read<QuizServiceImpl>().getAnswers());
-                        },
-                        onTap: () {
-                          setState(() {
-                            if (_currentPage < quizList.length) {
-                              _currentPage += 1;
-                            }
+                    BlocConsumer<AssessmentBloc, AssessmentState>(
+                      listener: (context, state) {
+                        if (state is AssessmentSuccessState<String>) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(state.data)));
+                          context.push('/scores', extra: {
+                            'score': calculateScore(quizList, answerList),
+                            'answers': answerList,
+                            'questions': quizList
                           });
-                        })
+                        }
+                        if (state is AssessmentErrorState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(state.message)));
+                        }
+                      },
+                      builder: (context, state) {
+                        return state is AssessmentLoadingState
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : NextOrSubmitButton(
+                                isSubmit: _currentPage == quizList.length - 1,
+                                onSubmit: () {
+                                  Assessments assessment = Assessments(
+                                      id: "",
+                                      userID: context
+                                              .read<AuthRepository>()
+                                              .currentUser
+                                              ?.uid ??
+                                          '',
+                                      quizList: quizList,
+                                      answers: answerList,
+                                      score:
+                                          calculateScore(quizList, answerList),
+                                      createdAt: DateTime.now());
+                                  context
+                                      .read<AssessmentBloc>()
+                                      .add(AddAssessmentEvent(assessment));
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    if (_currentPage < quizList.length) {
+                                      _currentPage += 1;
+                                    }
+                                  });
+                                });
+                      },
+                    )
                   ],
                 ),
               ),
             ),
           );
         }
-      },
-    );
-  }
-}
-
-class ChoicesList extends StatefulWidget {
-  final int questionIndex;
-  final QuizQuestion questions;
-  const ChoicesList(
-      {super.key, required this.questionIndex, required this.questions});
-  @override
-  State<ChoicesList> createState() => _ChoicesListState();
-}
-
-class _ChoicesListState extends State<ChoicesList> {
-  int _selectedIndex = -1;
-
-  String? indexToAlphabet(int index) {
-    if (index >= 0 && index < 26) {
-      return String.fromCharCode('A'.codeUnitAt(0) + index);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: widget.questions.choices.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.resolveWith<Color>((states) {
-                  if (_selectedIndex == index) {
-                    return Colors
-                        .green; // Change background color when selected
-                  }
-                  return Colors.white; // Default background color (white)
-                }), // Set the button's background color
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  widget.questions.choices[index],
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color:
-                        _selectedIndex == index ? Colors.white : Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
       },
     );
   }
@@ -250,7 +269,6 @@ class NextOrSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = context.read<QuizServiceImpl>().getAnswers();
     return isSubmit
         ? SizedBox(
             width: double.infinity,

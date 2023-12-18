@@ -31,6 +31,7 @@ class ModuleBloc extends Bloc<ModuleEvent, ModuleState> {
       Module module = Module(
           id: '', name: event.name, url: result, createdAt: DateTime.now());
       await _fileRepository.saveModule(module);
+      Future.delayed(const Duration(seconds: 2));
       emit(const ModuleSuccessState<String>("Successfully Saved!"));
     } catch (err) {
       emit(ModuleErrorState(err.toString()));

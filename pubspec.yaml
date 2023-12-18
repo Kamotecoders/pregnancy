@@ -79,7 +79,7 @@ flutter:
     - lib/assets/data/exercises.json
     - lib/assets/data/quiz.json
     - lib/assets/data/pregnant.json
-
+    - lib/assets/data/weeks.json
     - lib/assets/svg/
     - lib/assets/videos/m1.mp4
     - lib/assets/videos/m2.mp4

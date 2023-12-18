@@ -3,17 +3,19 @@ class Users {
   String name;
   String photo;
   String phone;
-
   final String email;
   final AccountType type;
+  final DateTime createdAt; // Added field
 
-  Users(
-      {required this.id,
-      required this.name,
-      required this.photo,
-      required this.phone,
-      required this.email,
-      required this.type});
+  Users({
+    required this.id,
+    required this.name,
+    required this.photo,
+    required this.phone,
+    required this.email,
+    required this.type,
+    required this.createdAt,
+  });
 
   factory Users.fromJson(Map<String, dynamic> json) {
     return Users(
@@ -23,6 +25,8 @@ class Users {
       phone: json['phone'] as String,
       email: json['email'] as String,
       type: _accountTypeFromString(json['type'] as String),
+      createdAt: DateTime.parse(json['createdAt']
+          as String), // Parse createdAt from String to DateTime
     );
   }
 
@@ -34,6 +38,8 @@ class Users {
       'phone': phone,
       'email': email,
       'type': _accountTypeToString(type),
+      'createdAt':
+          createdAt.toIso8601String(), // Convert DateTime to ISO8601 String
     };
   }
 }

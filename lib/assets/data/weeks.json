@@ -1,0 +1,113 @@
+[
+  {
+    "weekNumber": 1,
+    "description": "This first week is actually your menstrual period. Because your expected birth or due date (EDD or EDB) is calculated from the first day of your last period, this week counts as part of your 40-week pregnancy, even though your baby hasn’t been conceived yet. If you know the date of your last period, you can use a gestation calculator to calculate your due date.",
+    "image": "Pregnancy week 1 image URL"
+  },
+  {
+    "weekNumber": 2,
+    "description": "Fertilisation of your egg by the sperm (known as conception) will take place near the end of this week.",
+    "image": "Pregnancy week 2 image URL"
+  },
+  {
+    "weekNumber": 3,
+    "description": "Thirty hours after conception, the cell splits into two. Three days later, the cell (zygote) divides into 16 cells. After two more days, the zygote has migrated from the fallopian tube to the uterus (womb). Seven days after conception, the zygote burrows itself into the plump uterine lining (endometrium). The zygote is now known as a blastocyst.",
+    "image": "Pregnancy week 3 image URL"
+  },
+  {
+    "weekNumber": 4,
+    "description": "The developing baby is tinier than a grain of rice. The rapidly dividing cells are in the process of forming the various body systems, including the digestive system.",
+    "image": "Pregnancy week 4 image URL"
+  },
+  {
+    "weekNumber": 5,
+    "description": "The evolving neural tube will eventually become the central nervous system (brain and spinal cord).",
+    "image": "Pregnancy week 5 image URL"
+  },
+  {
+    "weekNumber": 6,
+    "description": "The baby is now known as an embryo. It is around 3 mm in length. By this stage, it is secreting special hormones that prevent the mother from having a menstrual period.",
+    "image": "Pregnancy week 6 image URL"
+  },
+  {
+    "weekNumber": 7,
+    "description": "The heart is beating. The embryo has developed its placenta and amniotic sac. The placenta is burrowing into the uterine wall to access oxygen and nutrients from the mother’s bloodstream.",
+    "image": "Pregnancy week 7 image URL"
+  },
+  {
+    "weekNumber": 8,
+    "description": "The embryo is now around 1.3 cm in length. The rapidly growing spinal cord looks like a tail. The head is disproportionately large.",
+    "image": "Pregnancy week 8 image URL"
+  },
+  {
+    "weekNumber": 9,
+    "description": "The eyes, mouth and tongue are forming. The tiny muscles allow the embryo to start moving about. Blood cells are being made by the embryo’s liver.",
+    "image": "Pregnancy week 9 image URL"
+  },
+  {
+    "weekNumber": 10,
+    "description": "The embryo is now known as a fetus and is about 2.5 cm in length. All of the bodily organs are formed. The hands and feet, which previously looked like nubs or paddles, are now evolving fingers and toes. The brain is active and has brain waves.",
+    "image": "Pregnancy week 10 image URL",
+    "dayOfWeekDifference": 2
+  },
+  {
+    "weekNumber": 11,
+    "description": "Teeth are budding inside the gums. The tiny heart is developing further.",
+    "image": "Pregnancy week 11 image URL"
+  },
+  {
+    "weekNumber": 12,
+    "description": "The fingers and toes are recognisable, but still stuck together with webs of skin. The first trimester combined screening test (maternal blood test + ultrasound of baby) can be done around this time. This test checks for trisomy 18 (Edward syndrome) and trisomy 21 (Down syndrome).",
+    "image": "Pregnancy week 12 image URL"
+  },
+  {
+    "weekNumber": 13,
+    "description": "The fetus can swim about quite vigorously. It is now more than 7 cm in length.",
+    "image": "Pregnancy week 13 image URL"
+  },
+  {
+    "weekNumber": 14,
+    "description": "The eyelids are fused over the fully developed eyes. The baby can now mutely cry, since it has vocal cords. It may even start sucking its thumb. The fingers and toes are growing nails.",
+    "image": "Pregnancy week 14 image URL"
+  },
+  {
+    "weekNumber": 16,
+    "description": "The fetus is around 14 cm in length. Eyelashes and eyebrows have appeared, and the tongue has taste buds. The second trimester maternal serum screening will be offered at this time if the first trimester test was not done (see week 12).",
+    "image": "Pregnancy week 16 image URL"
+  },
+  {
+    "weekNumber": 18,
+    "description": "An ultrasound will be offered. This fetal morphology scan is to check for structural abnormalities, position of placenta and multiple pregnancies. Interestingly, hiccoughs in the fetus can often be observed.",
+    "image": "Pregnancy week 18 image URL"
+  },
+  {
+    "weekNumber": 20,
+    "description": "The fetus is around 21 cm in length. Its ears are fully functioning and it can hear muffled sounds from the outside world. The fingertips have prints. The genitals can now be distinguished with an ultrasound scan.",
+    "image": "Pregnancy week 20 image URL"
+  },
+  {
+    "weekNumber": 24,
+    "description": "The fetus is around 33 cm in length. The fused eyelids now separate into upper and lower lids, enabling the baby to open and shut its eyes. The skin is covered in fine hair (lanugo) and protected by a layer of waxy secretion (vernix). The baby makes breathing movements with its lungs.",
+    "image": "Pregnancy week 24 image URL"
+  },
+  {
+    "weekNumber": 28,
+    "description": "Your baby now weighs about 1 kg (1,000 g) or 2 lb 2oz (2 pounds, 2 ounces) and measures about 25 cm (10 inches) from crown to rump. The crown-to-toe length is around 37 cm. The growing body has caught up with the large head and the baby now seems more in proportion.",
+    "image": "Pregnancy week 28 image URL"
+  },
+  {
+    "weekNumber": 32,
+    "description": "The baby spends most of its time asleep. Its movements are strong and coordinated. It has probably assumed the ‘head down’ position by now, in preparation for birth.",
+    "image": "Pregnancy week 32 image URL"
+  },
+  {
+    "weekNumber": 36,
+    "description": "The baby is around 46 cm in length. It has probably nestled its head into its mother’s pelvis, ready for birth. If it is born now, its chances for survival are excellent. Development of the lungs is rapid over the next few weeks.",
+    "image": "Pregnancy week 36 image URL"
+  },
+  {
+    "weekNumber": 40,
+    "description": "The baby is around 51 cm in length and ready to be born. It is unknown exactly what causes the onset of labour. It is most likely a combination of physical, hormonal and emotional factors between the mother and baby.",
+    "image": "Pregnancy week 40 image URL"
+  }
+]

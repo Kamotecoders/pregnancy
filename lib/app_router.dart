@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:pregnancy/models/modules.dart';
+import 'package:pregnancy/models/quiz.dart';
 import 'package:pregnancy/models/user.dart';
 import 'package:pregnancy/views/admin/pdf_viewer.dart';
 
@@ -20,6 +21,8 @@ import 'package:pregnancy/views/profile/features/growth.dart';
 import 'package:pregnancy/views/profile/features/lesson.dart';
 import 'package:pregnancy/views/profile/features/quiz.dart';
 import 'package:pregnancy/views/profile/features/tools.dart';
+import 'package:pregnancy/views/profile/features/view_assessments.dart';
+import 'package:pregnancy/views/score/score.dart';
 
 import 'package:pregnancy/widgets/navigation.dart';
 import 'package:pregnancy/widgets/view_pdf.dart';
@@ -105,6 +108,24 @@ class AppRouter {
         path: '/growth',
         builder: (BuildContext context, GoRouterState state) {
           return const GrowthPage();
+        },
+      ),
+      GoRoute(
+        path: '/view-assessment',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ViewAssessmentPage();
+        },
+      ),
+      GoRoute(
+        path: '/scores',
+        builder: (BuildContext context, GoRouterState state) {
+          final extras = state.extra as Map<String, dynamic>;
+          final score = extras['score'] ?? 0;
+          final List<int> answers =
+              extras['answers'] ?? List.generate(20, (index) => -1);
+          final List<QuizQuestion> questions = extras['questions'] ?? [];
+          return ScorePage(
+              score: score, answers: answers, questions: questions);
         },
       ),
       GoRoute(

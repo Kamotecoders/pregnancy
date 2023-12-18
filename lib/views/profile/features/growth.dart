@@ -156,8 +156,6 @@ class _GrowthCardState extends State<GrowthCard> {
             child: ListTile(
               leading: Image.asset(
                 widget.month.image,
-                height: 100,
-                width: 100,
               ),
               title: Text(widget.month.month),
               subtitle: Text(

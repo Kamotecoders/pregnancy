@@ -2,6 +2,8 @@ import 'dart:collection';
 
 import 'package:table_calendar/table_calendar.dart';
 
+import '../models/quiz.dart';
+
 String getGreeting() {
   final currentTime = DateTime.now();
   final hour = currentTime.hour;
@@ -60,3 +62,42 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+
+int alphabetToIndex(String? alphabet) {
+  if (alphabet == null || alphabet.length != 1) {
+    return -1;
+  }
+
+  final int charCode = alphabet.codeUnitAt(0);
+
+  if (charCode >= 'A'.codeUnitAt(0) && charCode <= 'Z'.codeUnitAt(0)) {
+    return charCode - 'A'.codeUnitAt(0);
+  } else {
+    return -1;
+  }
+}
+
+String? indexToAlphabet(int index) {
+  if (index >= 0 && index < 26) {
+    return String.fromCharCode('A'.codeUnitAt(0) + index);
+  } else {
+    return null;
+  }
+}
+
+int calculateScore(List<QuizQuestion> quizList, List<int> answerList) {
+  int score = 0;
+
+  for (int i = 0; i < quizList.length; i++) {
+    if (isAnswerCorrect(quizList[i], answerList[i])) {
+      score += 5;
+    }
+  }
+
+  return score;
+}
+
+bool isAnswerCorrect(QuizQuestion question, int selectedAnswerIndex) {
+  return selectedAnswerIndex != -1 &&
+      question.answer == indexToAlphabet(selectedAnswerIndex);
+}

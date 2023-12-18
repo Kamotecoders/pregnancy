@@ -1,0 +1,105 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pregnancy/models/quiz.dart';
+import 'package:pregnancy/service/quiz_service.dart';
+import 'package:pregnancy/widgets/score_container.dart';
+
+class QuizPage extends StatefulWidget {
+  const QuizPage({super.key});
+
+  @override
+  State<QuizPage> createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  int _currentPage = 0;
+  String backTitle(int currentPage) {
+    if (currentPage == 0) {
+      return "back";
+    }
+    return "previous";
+  }
+
+  late QuizServiceImpl _quizServiceImpl;
+  Future<List<QuizQuestion>> loadJsonData() async {
+    try {
+      final jsonString =
+          await rootBundle.loadString('lib/assets/data/quiz.json');
+
+      final List<dynamic> jsonList = json.decode(jsonString);
+      final quizList =
+          jsonList.map((json) => QuizQuestion.fromJson(json)).toList();
+      _quizServiceImpl = QuizServiceImpl(questions: quizList);
+      return quizList;
+    } catch (e) {
+      print('Error loading JSON: $e');
+      return [];
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: loadJsonData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+              height: double.infinity,
+              decoration: const BoxDecoration(color: Colors.white),
+              width: double.infinity,
+              child: const Center(child: CircularProgressIndicator()));
+        } else if (snapshot.hasError) {
+          return Container(
+              height: double.infinity,
+              decoration: const BoxDecoration(color: Colors.white),
+              width: double.infinity,
+              child: Center(child: Text('Error: ${snapshot.error}')));
+        } else {
+          final quizList = snapshot.data ?? [];
+          print("quiz :  ${quizList.length}");
+
+          return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  if (_currentPage == 0) {
+                    context.pop();
+                  }
+                  setState(() {
+                    if (_currentPage > 0) {
+                      _currentPage -= 1;
+                    }
+                  });
+                },
+                icon: const Icon(Icons.arrow_back_ios),
+              ),
+              title: Text('${_currentPage + 1}/${quizList.length}'),
+              centerTitle: true,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ScoreContainer(score: (_currentPage + 1) * 5),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        _quizServiceImpl.answerQuestion(1, quizList[0].answer);
+                        print(_quizServiceImpl.getAnswers());
+                      },
+                      child: Text("Test"))
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+}

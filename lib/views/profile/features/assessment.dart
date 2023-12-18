@@ -42,34 +42,69 @@ class AssessmentPage extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => context.push('/quiz'),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(
-                            0xFF004643)), // Set the button's background color
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => context.push('/quiz'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(
+                                0xFF004643)), // Set the button's background color
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Start",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
+                      child: const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          "Start",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => context.push('/view-assessment'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 232, 7,
+                                48)), // Set the button's background color
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          "View Assessments",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),

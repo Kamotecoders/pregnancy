@@ -74,7 +74,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           photo: '',
           phone: event.phone,
           email: event.email,
-          type: AccountType.USER);
+          type: AccountType.USER,
+          createdAt: DateTime.now());
       emit(AuthSuccessState<Users>(users));
     } catch (e) {
       emit(AuthErrorState(e.toString()));

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pregnancy/app_router.dart';
+import 'package:pregnancy/repositories/assesment_repository.dart';
 import 'package:pregnancy/repositories/auth_repository.dart';
 import 'package:pregnancy/repositories/file_repository.dart';
 import 'package:pregnancy/repositories/user_repository.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => FileRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => AssessmentRepository(),
         ),
       ],
       child: MaterialApp.router(
