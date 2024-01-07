@@ -7,6 +7,10 @@ import 'package:pregnancy/models/fetal_growth.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
 import 'package:video_player/video_player.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _url = Uri.parse('https://www.youtube.com/watch?v=WtDknjng8TA');
+
 class GrowthPage extends StatefulWidget {
   const GrowthPage({
     super.key,
@@ -168,8 +172,40 @@ class _GrowthCardState extends State<GrowthCard> {
           child: Chewie(
             controller: _chewieController,
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () {
+              _launchUrl();
+            },
+            child: Text.rich(
+              TextSpan(
+                text: 'Visit YouTube:\n',
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                children: [
+                  TextSpan(
+                    text: _url.toString(),
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
       ],
     ));
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }
