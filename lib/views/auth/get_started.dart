@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:go_router/go_router.dart';
-
 
 import 'package:pregnancy/styles/color_pallete.dart';
 
@@ -12,101 +12,190 @@ class GetStarted extends StatefulWidget {
 }
 
 class _GetStartedState extends State<GetStarted> {
+  final Color kDarkBlueColor = const Color(0xFF053149);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(""),
-        backgroundColor: Colors.white,
+    return OnBoardingSlider(
+      finishButtonText: 'Get Started',
+      onFinish: () {
+        context.push("/login");
+      },
+      finishButtonStyle: FinishButtonStyle(
+        backgroundColor: const Color(0xff89d2c4),
       ),
-      backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Image.asset(
-                  "lib/images/baby.png",
-                  height: 150,
-                  width: 150,
+      skipTextButton: Text(
+        'Skip',
+        style: TextStyle(
+          fontSize: 16,
+          color: const Color(0xff89d2c4),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      controllerColor: const Color(0xff89d2c4),
+      totalPage: 4,
+      headerBackgroundColor: Colors.white,
+      pageBackgroundColor: Colors.white,
+      background: [
+        Image.asset(
+          'lib/images/boarding1.png',
+          height: 400,
+        ),
+        Image.asset(
+          'lib/images/boarding2.png',
+          height: 400,
+        ),
+        Image.asset(
+          'lib/images/boarding3.png',
+          height: 400,
+        ),
+        Image.asset(
+          'lib/images/boarding4.png',
+          height: 400,
+        ),
+      ],
+      speed: 1.8,
+      pageBodies: [
+        Container(
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 480,
+              ),
+              Text(
+                'Pregnancy Safe App',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: kDarkBlueColor,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(
-                    'Bringing Pregnancy to Life: A 3D Mobile Application for Fetal Growth Development',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: ColorStyle.text_primary, // Optional: Text color
-                    ),
-                    textAlign: TextAlign.center,
-                    textDirection:
-                        TextDirection.ltr, // Set text direction if needed
-                  ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'Welcome to SafeBump, your trusted partner for a safe and healthy pregnancy journey.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black26,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              height: 339.5,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                    'lib/images/bg.png',
-                  ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 480,
+              ),
+              Text(
+                'Educational Resources',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: kDarkBlueColor,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              child: Column(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'Watch your baby grow, log your symptoms and learn what to expect month by month with Growly Pregnancy!',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w300,
-                        color: ColorStyle.text_primary,
-                      ),
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.ltr,
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      print("Clicked");
-                      context.push("/login");
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color(0xff89d2c4), // Set the background color
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30), // Apply border radius
-                      ),
-                      minimumSize: const Size(
-                          double.infinity, 48), // Set the button size
-                    ),
-                    child: const Text(
-                      'Get Started',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
+              const SizedBox(
+                height: 20,
               ),
-            ),
-          )
-        ],
-      ),
+              const Text(
+                'The app will provide educational resources to help users learn about maternal health, including articles, videos, and podcasts.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black26,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 480,
+              ),
+              Text(
+                'Community Support',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: kDarkBlueColor,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'The app will provide a community support feature to help users connect with other users, share experiences, and receive support.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black26,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 400,
+              ),
+              Text(
+                'Bringing Preganancy to life: Development of Mobile Application for Fetal Growth',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: kDarkBlueColor,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'Watch your baby grow, log your symptoms and learn what to expect week by week with Growly Pregnancy!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black26,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
