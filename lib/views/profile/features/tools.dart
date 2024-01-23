@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
 import 'package:pregnancy/widgets/tools_button.dart';
 
@@ -21,20 +22,16 @@ class ToolsPage extends StatelessWidget {
         body: Column(
           children: [
             ToolButtons(
-              title: "Is it safe ?",
-              onTap: () {},
-            ),
-            ToolButtons(
-              title: "Weight Gain Chart ",
-              onTap: () {},
-            ),
-            ToolButtons(
               title: "Bump Growth Chart ",
-              onTap: () {},
+              onTap: () {
+                context.push("/bump");
+              },
             ),
             ToolButtons(
               title: "Names ",
-              onTap: () {},
+              onTap: () {
+                context.push("/names");
+              },
             )
           ],
         ));

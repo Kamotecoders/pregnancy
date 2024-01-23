@@ -17,8 +17,10 @@ import 'package:pregnancy/views/auth/sign_up.dart';
 import 'package:pregnancy/views/profile/change_password.dart';
 import 'package:pregnancy/views/profile/edit_profile.dart';
 import 'package:pregnancy/views/profile/features/assessment.dart';
+import 'package:pregnancy/views/profile/features/bump.dart';
 import 'package:pregnancy/views/profile/features/growth.dart';
 import 'package:pregnancy/views/profile/features/lesson.dart';
+import 'package:pregnancy/views/profile/features/names.dart';
 import 'package:pregnancy/views/profile/features/quiz.dart';
 import 'package:pregnancy/views/profile/features/tools.dart';
 import 'package:pregnancy/views/profile/features/view_assessments.dart';
@@ -79,6 +81,18 @@ class AppRouter {
         path: '/home',
         builder: (BuildContext context, GoRouterState state) {
           return const MainNavigation();
+        },
+      ),
+      GoRoute(
+        path: '/names',
+        builder: (BuildContext context, GoRouterState state) {
+          return const Names();
+        },
+      ),
+      GoRoute(
+        path: '/bump',
+        builder: (BuildContext context, GoRouterState state) {
+          return const BumpChart();
         },
       ),
       GoRoute(
