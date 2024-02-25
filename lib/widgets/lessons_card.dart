@@ -12,7 +12,7 @@ class LessonsCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 220, 246, 235),
+            color: const Color.fromARGB(255, 220, 246, 235),
             borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(20.0),

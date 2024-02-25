@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:pregnancy/styles/color_pallete.dart';
 import 'package:pregnancy/utils/constants.dart';
+import 'package:pregnancy/widgets/baby_container.dart';
 import 'package:pregnancy/widgets/features_card.dart';
 import 'package:pregnancy/widgets/profile.dart';
 
@@ -19,15 +21,128 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ScrollController _scrollController = ScrollController();
+  int defaultIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Fetch user profile and calculate defaultIndex in initState
+    context
+        .read<UserRepository>()
+        .getUserProfile(
+          context.read<AuthRepository>().currentUser?.uid ?? '',
+        )
+        .then((userProfile) {
+      if (userProfile != null) {
+        setState(() {
+          defaultIndex = whatWeek(userProfile.createdAt);
+        });
+      }
+    });
+  }
+
+  int whatWeek(DateTime createdAt) {
+    DateTime currentDate = DateTime.now();
+    Duration difference = currentDate.difference(createdAt);
+    int weeks = (difference.inDays / 7).floor();
+    return weeks;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          UserProfileSection(),
-          const FeaturesContainer(),
-        ],
-      ),
+    return FutureBuilder<Users?>(
+      future: context.read<UserRepository>().getUserProfile(
+            context.read<AuthRepository>().currentUser?.uid ?? '',
+          ),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          final userProfile = snapshot.data;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            int week =
+                userProfile != null ? whatWeek(userProfile.createdAt) : 0;
+
+            _scrollController.animateTo(
+              week * 82.0,
+              duration: const Duration(seconds: 1),
+              curve: Curves.easeInOut,
+            );
+          });
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                if (userProfile != null)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: ColorStyle.primary,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    margin: const EdgeInsets.all(16.0),
+                    child: UserProfileSection(users: userProfile),
+                  ),
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  height: 100,
+                  margin: const EdgeInsets.all(16.0),
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: 40,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                        width: 80,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                "Week",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: defaultIndex == index
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: defaultIndex == index
+                                      ? Colors.black
+                                      : Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                '${index + 1}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: defaultIndex == index
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: defaultIndex == index
+                                      ? Colors.black
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  height: 150,
+                  width: double.infinity,
+                  child: BabyContainer(week: defaultIndex + 1),
+                ),
+                const FeaturesContainer()
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }
@@ -123,63 +238,47 @@ class DynamicBaby extends StatelessWidget {
 }
 
 class UserProfileSection extends StatelessWidget {
-  const UserProfileSection({Key? key}) : super(key: key);
+  final Users users;
+  const UserProfileSection({Key? key, required this.users}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Users?>(
-      future: context.read<UserRepository>().getUserProfile(
-          context.read<AuthRepository>().currentUser?.uid ?? ''),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data == null) {
-          return const Center(child: Text('User not found.'));
-        } else {
-          Users user = snapshot.data!;
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Hello,',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            '${user.name}',
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                      ClipOval(
-                        child: Image.network(
-                          user.photo,
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Hello,',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      '${users.name}',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                ClipOval(
+                  child: Image.network(
+                    users.photo,
+                    height: 70,
+                    width: 70,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                DynamicBaby(createdAt: user.createdAt)
-                // Add more fields as needed
               ],
             ),
-          );
-        }
-      },
+          ),
+        ],
+      ),
     );
   }
 }
