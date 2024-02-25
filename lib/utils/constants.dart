@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:pregnancy/models/assesments.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../models/quiz.dart';
@@ -100,4 +101,20 @@ int calculateScore(List<QuizQuestion> quizList, List<int> answerList) {
 bool isAnswerCorrect(QuizQuestion question, int selectedAnswerIndex) {
   return selectedAnswerIndex != -1 &&
       question.answer == indexToAlphabet(selectedAnswerIndex);
+}
+
+num getTotalScore(List<Assessments> assessments) {
+  num total = 0;
+  for (var element in assessments) {
+    total += element.score;
+  }
+  return total;
+}
+
+double calculateSuccessRate(int totalMaxScore, num totalScore, int totalTries) {
+  if (totalMaxScore == 0 || totalTries == 0) {
+    return 0.0; // Avoid division by zero
+  }
+  double successRate = (totalScore / totalMaxScore) * 100;
+  return successRate;
 }

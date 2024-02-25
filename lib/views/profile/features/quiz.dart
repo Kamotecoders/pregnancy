@@ -67,24 +67,24 @@ class _QuizPageState extends State<QuizPage> {
           final quizList = snapshot.data ?? [];
           return Scaffold(
             appBar: AppBar(
-              leading: GestureDetector(
-                onTap: () {
-                  if (_currentPage == 0) {
-                    context.pop();
-                  }
-                  setState(() {
-                    if (_currentPage > 0) {
-                      _currentPage -= 1;
-                    }
-                  });
-                },
-                child: Row(
-                  children: [
-                    const Icon(Icons.arrow_back_ios),
-                    Text(backTitle(_currentPage))
-                  ],
-                ), // You can use any custom icon or widget
-              ),
+              // leading: GestureDetector(
+              //   onTap: () {
+              //     if (_currentPage == 0) {
+              //       context.pop();
+              //     }
+              //     setState(() {
+              //       if (_currentPage > 0) {
+              //         _currentPage -= 1;
+              //       }
+              //     });
+              //   },
+              //   child: Row(
+              //     children: [
+              //       const Icon(Icons.arrow_back_ios),
+              //       Text(backTitle(_currentPage))
+              //     ],
+              //   ), // You can use any custom icon or widget
+              // ),
               title: Text('${_currentPage + 1}/${quizList.length}'),
               centerTitle: true,
             ),
@@ -196,6 +196,16 @@ class _QuizPageState extends State<QuizPage> {
                                       .read<AssessmentBloc>()
                                       .add(AddAssessmentEvent(assessment));
                                 },
+                                onBack: () {
+                                  if (_currentPage == 0) {
+                                    context.pop();
+                                  }
+                                  setState(() {
+                                    if (_currentPage > 0) {
+                                      _currentPage -= 1;
+                                    }
+                                  });
+                                },
                                 onTap: () {
                                   setState(() {
                                     if (_currentPage < quizList.length) {
@@ -260,65 +270,53 @@ class _QuizQuestionsContainerState extends State<QuizQuestionsContainer> {
 class NextOrSubmitButton extends StatelessWidget {
   final bool isSubmit;
   final VoidCallback onTap;
+  final VoidCallback onBack;
   final VoidCallback onSubmit;
   const NextOrSubmitButton(
       {super.key,
       required this.isSubmit,
       required this.onTap,
+      required this.onBack,
       required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
-    return isSubmit
-        ? SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: onSubmit,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(const Color(
-                    0xFF004643)), // Set the button's background color
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconButton(
+              onPressed: onBack, icon: const Icon(Icons.arrow_circle_left)),
+          isSubmit
+              ? SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: onSubmit,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(
+                              0xFF004643)), // Set the button's background color
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text(
-                  "Submit",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          )
-        : SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: onTap,
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(const Color(
-                    0xFF004643)), // Set the button's background color
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text(
-                  "Next",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          );
+                )
+              : IconButton(
+                  onPressed: onTap,
+                  icon: const Icon(Icons.arrow_circle_right_rounded))
+        ]);
   }
 }

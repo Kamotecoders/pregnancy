@@ -9,6 +9,7 @@ import 'package:pregnancy/repositories/file_repository.dart';
 import 'package:pregnancy/styles/color_pallete.dart';
 
 import 'package:pregnancy/views/admin/admin.dart';
+import 'package:pregnancy/views/admin/assessments.dart';
 import 'package:pregnancy/views/calendar/calendar.dart';
 import 'package:pregnancy/views/exercise/exercise.dart';
 import 'package:pregnancy/views/home/home.dart';
@@ -79,7 +80,6 @@ class _UserBottomNavState extends State<UserBottomNav> {
   int _selectedIndex = 0;
   static const List<String> _titles = [
     "Home",
-    "Exercise",
     "Calendar",
     "Developers",
     "Profile"
@@ -109,6 +109,7 @@ class _UserBottomNavState extends State<UserBottomNav> {
         ),
         backgroundColor: ColorStyle.primary,
       ),
+      backgroundColor: Color(0xFFD2F5EB),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: ColorStyle.primary,
         unselectedItemColor: ColorStyle.blackColor,
@@ -166,9 +167,14 @@ class AdminBottomNav extends StatefulWidget {
 
 class _AdminBottomNavState extends State<AdminBottomNav> {
   int _selectedIndex = 0;
-  static const List<String> _titles = ["Administrator", "Profile"];
+  static const List<String> _titles = [
+    "Administrator",
+    "Assessments",
+    "Profile"
+  ];
   static const List<Widget> _pages = <Widget>[
     AdminHomePage(),
+    AssessmentsPage(),
     ProfilePage(),
   ];
 
@@ -312,6 +318,14 @@ class _AdminBottomNavState extends State<AdminBottomNav> {
               semanticLabel: 'Text to home',
             ),
             label: 'Administrator',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assessment,
+              size: 24.0,
+              semanticLabel: 'Text to home',
+            ),
+            label: 'Assessments',
           ),
           BottomNavigationBarItem(
             icon: Icon(
