@@ -38,9 +38,6 @@ class FileRepository {
 
   Future<void> deleteModuleAndFile(String moduleID, String filePath) async {
     try {
-      // Delete the file in Firebase Storage
-      Reference storageReference = _storage.ref().child(filePath);
-      await storageReference.delete();
       print('File deleted successfully.');
 
       // Delete the document in Firestore
