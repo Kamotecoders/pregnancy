@@ -272,6 +272,7 @@ class NextOrSubmitButton extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onBack;
   final VoidCallback onSubmit;
+
   const NextOrSubmitButton(
       {super.key,
       required this.isSubmit,
@@ -281,42 +282,47 @@ class NextOrSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          IconButton(
-              onPressed: onBack, icon: const Icon(Icons.arrow_circle_left)),
-          isSubmit
-              ? SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: onSubmit,
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(
-                              0xFF004643)), // Set the button's background color
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+    return Column(
+      children: [
+        if (isSubmit)
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: onSubmit,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(
+                    0xFF004643)), // Set the button's background color
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                )
-              : IconButton(
-                  onPressed: onTap,
-                  icon: const Icon(Icons.arrow_circle_right_rounded))
-        ]);
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  "Submit",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        if (!isSubmit)
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: onBack,
+                    icon: const Icon(Icons.arrow_circle_left)),
+                IconButton(
+                    onPressed: onTap,
+                    icon: const Icon(Icons.arrow_circle_right_rounded))
+              ]),
+      ],
+    );
   }
 }
